@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123d2a">
+  <meta name="description" content="Registro de atividades acadêmicas do Departamento de Ciências Biológicas da UERN">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="logo-decb.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Atividades DECB</title>
+</head>
+<body>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <section id="auth-view" class="auth-shell">
+    <div class="brand-panel">
+      <img src="logo-decb.png" alt="Logomarca do DECB/UERN">
+      <p class="eyebrow">DEPARTAMENTO DE CIÊNCIAS BIOLÓGICAS</p>
+      <h1>Registro de atividades</h1>
+      <p>Um histórico único das ações de ensino, pesquisa e extensão do departamento.</p>
+      <div class="security-note"><span>✓</span> Acesso restrito aos e-mails institucionais autorizados</div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" data-auth="login">Entrar</button>
+        <button class="auth-tab" data-auth="signup">Primeiro acesso</button>
+      </div>
+      <form id="auth-form">
+        <div id="name-row" class="field hidden"><label for="name">Nome completo</label><input id="name" autocomplete="name"></div>
+        <div class="field"><label for="email">E-mail institucional</label><input id="email" type="email" autocomplete="email" placeholder="nome@uern.br" required></div>
+        <div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" minlength="8" required></div>
+        <button class="primary wide" type="submit" id="auth-submit">Entrar com segurança</button>
+        <p id="auth-help">Use o e-mail <strong>@uern.br</strong> cadastrado pelo DECB.</p>
+      </form>
+    </div>
+  </section>
+
+  <div id="app-view" class="hidden">
+    <aside class="sidebar">
+      <div class="side-brand"><img src="logo-decb.png" alt=""><div><strong>DECB</strong><small>Atividades</small></div></div>
+      <nav>
+        <button class="nav-item active" data-view="dashboard">Visão geral</button>
+        <button class="nav-item" data-view="register">Nova atividade</button>
+        <button class="nav-item" data-view="activities">Registros</button>
+      </nav>
+      <div class="user-box"><span id="user-name">Docente</span><small id="user-email"></small><button id="logout">Sair</button></div>
+    </aside>
+
+    <main class="main">
+      <header class="mobile-head"><button id="menu">☰</button><strong>Atividades DECB</strong></header>
+
+      <section id="dashboard" class="page">
+        <div class="page-head"><div><p class="eyebrow">PAINEL DO DEPARTAMENTO</p><h2>Visão geral</h2></div><button class="primary" data-go="register">+ Registrar atividade</button></div>
+        <div class="stats">
+          <article><small>Atividades registradas</small><strong id="stat-total">0</strong></article>
+          <article><small>Participantes alcançados</small><strong id="stat-participants">0</strong></article>
+          <article><small>Carga horária total</small><strong id="stat-hours">0 h</strong></article>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Atividades recentes</h3><p>Últimos registros do DECB</p></div><button class="text-btn" data-go="activities">Ver todos</button></div><div id="recent-list" class="activity-list"></div></div>
+      </section>
+
+      <section id="register" class="page hidden">
+        <div class="page-head"><div><p class="eyebrow">NOVO REGISTRO</p><h2>Registrar atividade</h2></div></div>
+        <form id="activity-form" class="form-panel">
+          <div class="field span-2"><label for="title">Título da atividade</label><input id="title" required maxlength="200"></div>
+          <div class="field"><label for="type">Tipo</label><select id="type" required><option value="">Selecione</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
+          <div class="field"><label for="date">Data</label><input id="date" type="date" required></div>
+          <div class="field span-2"><label for="professor">Responsável</label><input id="professor" required></div>
+          <div class="field span-2"><label for="description">Descrição</label><textarea id="description" rows="5" required maxlength="5000"></textarea></div>
+          <div class="field"><label for="participants">Participantes</label><input id="participants" type="number" min="0"></div>
+          <div class="field"><label for="duration">Carga horária</label><input id="duration" type="number" min="0" step="0.5"></div>
+          <div class="field span-2"><label>Produto resultante?</label><div class="radio-row"><label><input type="radio" name="hasProduct" value="false" checked> Não</label><label><input type="radio" name="hasProduct" value="true"> Sim</label></div></div>
+          <div id="product-fields" class="span-2 product-grid hidden"><div class="field"><label for="product-type">Formato</label><select id="product-type"><option value="Físico">Físico</option><option value="Virtual">Virtual</option></select></div><div class="field"><label id="product-detail-label" for="product-detail">Localização</label><input id="product-detail"></div></div>
+          <div class="field"><label for="photo">Foto (até 10 MB)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"></div>
+          <div class="field"><label for="pdf">Documento PDF (até 10 MB)</label><input id="pdf" type="file" accept="application/pdf"></div>
+          <div class="form-actions span-2"><button type="button" class="secondary" data-go="dashboard">Cancelar</button><button type="submit" class="primary" id="save-activity">Salvar atividade</button></div>
+        </form>
+      </section>
+
+      <section id="activities" class="page hidden">
+        <div class="page-head"><div><p class="eyebrow">HISTÓRICO</p><h2>Registros</h2></div><button class="primary" data-go="register">+ Nova atividade</button></div>
+        <div class="filters"><input id="search" placeholder="Buscar por título ou responsável"><select id="filter-type"><option value="">Todos os tipos</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
+        <div id="all-list" class="activity-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
