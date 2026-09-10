@@ -27,8 +27,10 @@
       <h2>Entrar</h2>
       <p>Use sua conta Google institucional cadastrada pelo DECB.</p>
       <button class="primary wide google-login" type="button" id="google-login">
-        <span aria-hidden="true">G</span> Continuar com Google
+        <svg class="google-mark" aria-hidden="true" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.23c0-.71-.06-1.4-.18-2.05H12v3.87h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.33 2.98-7.35z"/><path fill="#34A853" d="M12 22c2.7 0 4.97-.9 6.62-2.42l-3.24-2.51c-.9.6-2.05.96-3.38.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.59A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.39 13.9A6 6 0 0 1 6.08 12c0-.66.11-1.3.31-1.9V7.51H3.04A10 10 0 0 0 2 12c0 1.61.38 3.14 1.04 4.49l3.35-2.59z"/><path fill="#EA4335" d="M12 5.97c1.47 0 2.79.51 3.83 1.5l2.87-2.88A9.64 9.64 0 0 0 12 2a10 10 0 0 0-8.96 5.51l3.35 2.59C7.18 7.73 9.39 5.97 12 5.97z"/></svg> Continuar com Google
       </button>
+      <div class="auth-divider"><span>ou</span></div>
+      <button class="secondary wide" type="button" id="public-access">Consultar atividades como visitante</button>
       <p id="auth-help">Somente contas <strong>@uern.br</strong> autorizadas. Contas <strong>@alu.uern.br</strong> não são aceitas.</p>
     </div>
   </section>
@@ -40,6 +42,7 @@
         <button class="nav-item active" data-view="dashboard">Visão geral</button>
         <button class="nav-item" data-view="register">Nova atividade</button>
         <button class="nav-item" data-view="activities">Registros</button>
+        <button class="nav-item" data-view="reports">Relatórios</button>
       </nav>
       <div class="user-box"><span id="user-name">Docente</span><small id="user-email"></small><button id="logout">Sair</button></div>
     </aside>
@@ -57,26 +60,42 @@
         <div class="panel"><div class="panel-head"><div><h3>Atividades recentes</h3><p>Últimos registros do DECB</p></div><button class="text-btn" data-go="activities">Ver todos</button></div><div id="recent-list" class="activity-list"></div></div>
       </section>
 
+      <section id="reports" class="page hidden">
+        <div class="page-head report-heading"><div><p class="eyebrow">ANÁLISE E EXPORTAÇÃO</p><h2>Relatórios</h2><p>Estatísticas e detalhamento das atividades registradas.</p></div><div class="report-actions"><button class="secondary" type="button" id="download-csv">Baixar CSV</button><button class="secondary" type="button" id="download-pdf">Baixar PDF</button><button class="primary" type="button" id="print-report">Imprimir</button></div></div>
+        <div class="report-print-head"><h1>Relatório de Atividades — DECB/UERN</h1><p id="report-generated-at"></p></div>
+        <div class="report-filters"><div class="field"><label for="report-type">Tipo</label><select id="report-type"><option value="">Todos os tipos</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div><div class="field"><label for="report-from">Data inicial</label><input id="report-from" type="date"></div><div class="field"><label for="report-to">Data final</label><input id="report-to" type="date"></div></div>
+        <div class="stats report-stats"><article><small>Total de atividades</small><strong id="report-total">0</strong></article><article><small>Participantes totais</small><strong id="report-participants">0</strong></article><article><small>Carga horária (h)</small><strong id="report-hours">0</strong></article></div>
+        <div class="report-charts"><article class="panel"><div class="panel-head"><div><h3>Atividades por tipo</h3><p>Quantidade de registros</p></div></div><div id="chart-count" class="bar-chart"></div></article><article class="panel"><div class="panel-head"><div><h3>Carga horária por tipo</h3><p>Total de horas registradas</p></div></div><div id="chart-hours" class="bar-chart"></div></article></div>
+        <article class="panel report-detail"><div class="panel-head"><div><h3>Detalhamento</h3><p id="report-result-count">0 atividades</p></div></div><div class="table-wrap"><table><thead><tr><th>Data</th><th>Título</th><th>Tipo</th><th>Professor</th><th class="number">Participantes</th><th class="number">CH (h)</th></tr></thead><tbody id="report-table"></tbody></table></div></article>
+      </section>
+
       <section id="register" class="page hidden">
-        <div class="page-head"><div><p class="eyebrow">NOVO REGISTRO</p><h2>Registrar atividade</h2></div></div>
+        <div class="page-head"><div><p class="eyebrow">NOVO REGISTRO</p><h2>Registrar atividade</h2><p>Preencha o formulário abaixo para registrar uma nova atividade acadêmica.</p></div></div>
         <form id="activity-form" class="form-panel">
-          <div class="field span-2"><label for="title">Título da atividade</label><input id="title" required maxlength="200"></div>
-          <div class="field"><label for="type">Tipo</label><select id="type" required><option value="">Selecione</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
-          <div class="field"><label for="date">Data</label><input id="date" type="date" required></div>
-          <div class="field span-2"><label for="professor">Responsável</label><input id="professor" required></div>
-          <div class="field span-2"><label for="description">Descrição</label><textarea id="description" rows="5" required maxlength="5000"></textarea></div>
-          <div class="field"><label for="participants">Participantes</label><input id="participants" type="number" min="0"></div>
-          <div class="field"><label for="duration">Carga horária</label><input id="duration" type="number" min="0" step="0.5"></div>
-          <div class="field span-2"><label>Produto resultante?</label><div class="radio-row"><label><input type="radio" name="hasProduct" value="false" checked> Não</label><label><input type="radio" name="hasProduct" value="true"> Sim</label></div></div>
-          <div id="product-fields" class="span-2 product-grid hidden"><div class="field"><label for="product-type">Formato</label><select id="product-type"><option value="Físico">Físico</option><option value="Virtual">Virtual</option></select></div><div class="field"><label id="product-detail-label" for="product-detail">Localização</label><input id="product-detail"></div></div>
-          <div class="field"><label for="photo">Foto (até 10 MB)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"></div>
-          <div class="field"><label for="pdf">Documento PDF (até 10 MB)</label><input id="pdf" type="file" accept="application/pdf"></div>
-          <div class="form-actions span-2"><button type="button" class="secondary" data-go="dashboard">Cancelar</button><button type="submit" class="primary" id="save-activity">Salvar atividade</button></div>
+          <fieldset class="form-section span-2"><legend>Informações básicas</legend><div class="section-grid">
+            <div class="field span-2"><label for="title">Título da atividade</label><input id="title" required maxlength="200" placeholder="Ex.: Projeto de Extensão Universitária"></div>
+            <div class="field"><label for="type">Tipo de atividade</label><select id="type" required><option value="">Selecione o tipo</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
+            <div class="field"><label for="date">Data</label><input id="date" type="date" required></div>
+            <div class="field span-2"><label for="professor">Professor responsável</label><input id="professor" required readonly aria-describedby="professor-help"><small id="professor-help">Preenchido automaticamente com o usuário autenticado.</small></div>
+            <div class="field span-2"><label for="description">Descrição</label><textarea id="description" rows="5" required maxlength="5000" placeholder="Detalhes da atividade"></textarea></div>
+            <div class="field"><label for="participants">Número de participantes</label><input id="participants" type="number" min="0" step="1" placeholder="Opcional"></div>
+            <div class="field"><label for="duration">Carga horária (horas)</label><input id="duration" type="number" min="0" step="0.5" placeholder="Opcional"></div>
+          </div></fieldset>
+          <fieldset class="form-section span-2"><legend>Produto gerado</legend><p>A atividade resultou na criação de algum produto, como relatório, artigo, material didático ou recurso digital?</p>
+            <div class="field"><label>Gerou produto?</label><div class="radio-row"><label><input type="radio" name="hasProduct" value="false" checked> Não</label><label><input type="radio" name="hasProduct" value="true"> Sim</label></div></div>
+            <div id="product-fields" class="product-grid hidden"><div class="field"><label for="product-type">Tipo de produto</label><select id="product-type"><option value="">Selecione</option><option value="Físico">Físico</option><option value="Virtual">Virtual</option></select></div><div class="field"><label id="product-detail-label" for="product-detail">Localização do produto</label><input id="product-detail" placeholder="Ex.: Laboratório de Botânica, armário 3"></div></div>
+          </fieldset>
+          <fieldset class="form-section span-2"><legend>Anexos</legend><div class="section-grid">
+            <div class="field"><label for="photo">Foto da atividade (opcional)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>PNG, JPG, JPEG ou WebP, até 10 MB.</small></div>
+            <div class="field"><label for="pdf">Documento PDF (opcional)</label><input id="pdf" type="file" accept="application/pdf"><small>Apenas PDF, até 10 MB.</small></div>
+          </div></fieldset>
+          <div class="form-actions span-2"><button type="button" class="secondary" id="clear-activity">Limpar</button><button type="button" class="secondary" data-go="dashboard">Cancelar</button><button type="submit" class="primary" id="save-activity">Registrar atividade</button></div>
         </form>
       </section>
 
       <section id="activities" class="page hidden">
-        <div class="page-head"><div><p class="eyebrow">HISTÓRICO</p><h2>Registros</h2></div><button class="primary" data-go="register">+ Nova atividade</button></div>
+        <div id="observer-note" class="observer-note hidden"><strong>Consulta pública</strong><span>Você está acessando como observador. Não é possível publicar, editar ou excluir informações.</span></div>
+        <div class="page-head"><div><p class="eyebrow">HISTÓRICO</p><h2>Registros</h2></div><button class="primary restricted-action" data-go="register">+ Nova atividade</button></div>
         <div class="filters"><input id="search" placeholder="Buscar por título ou responsável"><select id="filter-type"><option value="">Todos os tipos</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
         <div id="all-list" class="activity-list"></div>
       </section>
@@ -84,7 +103,7 @@
       <footer class="site-footer">
         <img src="logo-decb.png" alt="Logomarca do DECB/UERN">
         <div class="footer-copy"><strong>Registro de Atividades do DECB</strong><span>Desenvolvido pelo Prof. José Egberto Mesquita Pinto Júnior com a ferramenta de IA ChatGPT</span></div>
-        <div class="footer-meta"><span>Registro de Atividades do DECB · Versão 1.0.0</span><button type="button" id="open-citation">Como citar o Registro de Atividades do DECB</button><a href="privacidade.html">Política de Privacidade</a></div>
+        <div class="footer-meta"><span>Registro de Atividades do DECB · Versão 1.3.0</span><button type="button" id="open-citation">Como citar o Registro de Atividades do DECB</button><a href="privacidade.html">Política de Privacidade</a></div>
       </footer>
     </main>
   </div>
@@ -93,7 +112,7 @@
     <form method="dialog" class="dialog-card">
       <div class="dialog-head"><div><p class="eyebrow">REFERÊNCIA</p><h2 id="citation-title">Como citar</h2></div><button class="dialog-close" aria-label="Fechar">×</button></div>
       <p>Ao utilizar o sistema em trabalhos, relatórios ou materiais institucionais, utilize a referência:</p>
-      <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.0.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
+      <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.3.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
       <button type="button" class="primary" id="copy-citation">Copiar referência</button>
     </form>
   </dialog>
