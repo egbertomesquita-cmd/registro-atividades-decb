@@ -8,6 +8,7 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="logo-decb.png">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="footer.css">
   <title>Atividades DECB</title>
 </head>
 <body>
@@ -22,17 +23,13 @@
       <div class="security-note"><span>✓</span> Acesso restrito aos e-mails institucionais autorizados</div>
     </div>
     <div class="auth-card">
-      <div class="auth-tabs" role="tablist">
-        <button class="auth-tab active" data-auth="login">Entrar</button>
-        <button class="auth-tab" data-auth="signup">Primeiro acesso</button>
-      </div>
-      <form id="auth-form">
-        <div id="name-row" class="field hidden"><label for="name">Nome completo</label><input id="name" autocomplete="name"></div>
-        <div class="field"><label for="email">E-mail institucional</label><input id="email" type="email" autocomplete="email" placeholder="nome@uern.br" required></div>
-        <div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" minlength="8" required></div>
-        <button class="primary wide" type="submit" id="auth-submit">Entrar com segurança</button>
-        <p id="auth-help">Use o e-mail <strong>@uern.br</strong> cadastrado pelo DECB.</p>
-      </form>
+      <p class="eyebrow">ACESSO INSTITUCIONAL</p>
+      <h2>Entrar</h2>
+      <p>Use sua conta Google institucional cadastrada pelo DECB.</p>
+      <button class="primary wide google-login" type="button" id="google-login">
+        <span aria-hidden="true">G</span> Continuar com Google
+      </button>
+      <p id="auth-help">Somente contas <strong>@uern.br</strong> autorizadas. Contas <strong>@alu.uern.br</strong> não são aceitas.</p>
     </div>
   </section>
 
@@ -83,8 +80,23 @@
         <div class="filters"><input id="search" placeholder="Buscar por título ou responsável"><select id="filter-type"><option value="">Todos os tipos</option><option>Ensino</option><option>Pesquisa</option><option>Extensão</option><option>UCE</option><option>Prática Educativa</option><option>Aula de Campo</option><option>Outro</option></select></div>
         <div id="all-list" class="activity-list"></div>
       </section>
+
+      <footer class="site-footer">
+        <img src="logo-decb.png" alt="Logomarca do DECB/UERN">
+        <div class="footer-copy"><strong>Registro de Atividades do DECB</strong><span>Desenvolvido pelo Prof. José Egberto Mesquita Pinto Júnior com a ferramenta de IA ChatGPT</span></div>
+        <div class="footer-meta"><span>Registro de Atividades do DECB · Versão 1.0.0</span><button type="button" id="open-citation">Como citar o Registro de Atividades do DECB</button><a href="privacidade.html">Política de Privacidade</a></div>
+      </footer>
     </main>
   </div>
+
+  <dialog id="citation-dialog" aria-labelledby="citation-title">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-head"><div><p class="eyebrow">REFERÊNCIA</p><h2 id="citation-title">Como citar</h2></div><button class="dialog-close" aria-label="Fechar">×</button></div>
+      <p>Ao utilizar o sistema em trabalhos, relatórios ou materiais institucionais, utilize a referência:</p>
+      <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.0.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
+      <button type="button" class="primary" id="copy-citation">Copiar referência</button>
+    </form>
+  </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
