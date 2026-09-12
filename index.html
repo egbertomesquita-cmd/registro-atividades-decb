@@ -9,6 +9,7 @@
   <link rel="icon" href="logo-decb.png">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="footer.css">
+  <link rel="stylesheet" href="gallery.css">
   <title>Atividades DECB</title>
 </head>
 <body>
@@ -114,6 +115,16 @@
       <p>Ao utilizar o sistema em trabalhos, relatórios ou materiais institucionais, utilize a referência:</p>
       <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.3.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
       <button type="button" class="primary" id="copy-citation">Copiar referência</button>
+    </form>
+  </dialog>
+
+  <dialog id="activity-detail-dialog" class="activity-detail-dialog" aria-labelledby="activity-detail-title">
+    <form method="dialog" class="dialog-card activity-detail-card">
+      <div class="dialog-head"><div><p class="eyebrow">ATIVIDADE DO DECB</p><h2 id="activity-detail-title">Detalhes da atividade</h2><p id="activity-detail-meta" class="detail-meta"></p></div><button class="dialog-close" aria-label="Fechar">×</button></div>
+      <p id="activity-detail-description" class="detail-description"></p>
+      <section class="detail-section"><h3>Produto registrado</h3><div id="activity-product" class="product-detail"></div></section>
+      <section class="detail-section"><h3>Galeria de imagens</h3><div id="activity-gallery" class="activity-gallery"></div></section>
+      <section class="detail-section"><h3>Documentos</h3><div id="activity-documents" class="activity-documents"></div></section>
     </form>
   </dialog>
 
