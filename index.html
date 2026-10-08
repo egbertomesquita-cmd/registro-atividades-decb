@@ -84,7 +84,7 @@
           </div></fieldset>
           <fieldset class="form-section span-2"><legend>Produto gerado</legend><p>A atividade resultou na criação de algum produto, como relatório, artigo, material didático ou recurso digital?</p>
             <div class="field"><label>Gerou produto?</label><div class="radio-row"><label><input type="radio" name="hasProduct" value="false" checked> Não</label><label><input type="radio" name="hasProduct" value="true"> Sim</label></div></div>
-            <div id="product-fields" class="product-grid hidden"><div class="field"><label for="product-type">Tipo de produto</label><select id="product-type"><option value="">Selecione</option><option value="Físico">Físico</option><option value="Virtual">Virtual</option></select></div><div class="field"><label id="product-detail-label" for="product-detail">Localização do produto</label><input id="product-detail" placeholder="Ex.: Laboratório de Botânica, armário 3"></div></div>
+            <div id="product-fields" class="product-grid hidden"><div class="field"><label for="product-quantity">Quantidade de produtos</label><input id="product-quantity" type="number" min="1" max="1000" step="1" placeholder="Ex.: 3" aria-describedby="product-names-help"></div><div class="field"><label for="product-names">Nomes dos produtos</label><textarea id="product-names" rows="4" maxlength="301000" placeholder="Um nome por linha" aria-describedby="product-names-help"></textarea><small id="product-names-help">Informe um nome por linha, conforme a quantidade. Os participantes são contabilizados uma única vez por atividade.</small></div><div class="field"><label for="product-type">Tipo de produto</label><select id="product-type"><option value="">Selecione</option><option value="Físico">Físico</option><option value="Virtual">Virtual</option></select></div><div class="field"><label id="product-detail-label" for="product-detail">Localização do produto</label><input id="product-detail" placeholder="Ex.: Laboratório de Botânica, armário 3"></div></div>
           </fieldset>
           <fieldset class="form-section span-2"><legend>Anexos</legend><div class="section-grid">
             <div class="field"><label for="photo">Foto da atividade (opcional)</label><input id="photo" type="file" accept="image/jpeg,image/png,image/webp"><small>PNG, JPG, JPEG ou WebP, até 10 MB.</small></div>
@@ -104,7 +104,7 @@
       <footer class="site-footer">
         <img src="logo-decb.png" alt="Logomarca do DECB/UERN">
         <div class="footer-copy"><strong>Registro de Atividades do DECB</strong><span>Desenvolvido pelo Prof. José Egberto Mesquita Pinto Júnior com a ferramenta de IA ChatGPT</span></div>
-        <div class="footer-meta"><span>Registro de Atividades do DECB · Versão 1.4.0</span><button type="button" id="open-citation">Como citar o Registro de Atividades do DECB</button><a href="privacidade.html">Política de Privacidade</a></div>
+        <div class="footer-meta"><span>Registro de Atividades do DECB · Versão 1.5.0</span><button type="button" id="open-citation">Como citar o Registro de Atividades do DECB</button><a href="privacidade.html">Política de Privacidade</a></div>
       </footer>
     </main>
   </div>
@@ -113,7 +113,7 @@
     <form method="dialog" class="dialog-card">
       <div class="dialog-head"><div><p class="eyebrow">REFERÊNCIA</p><h2 id="citation-title">Como citar</h2></div><button class="dialog-close" aria-label="Fechar">×</button></div>
       <p>Ao utilizar o sistema em trabalhos, relatórios ou materiais institucionais, utilize a referência:</p>
-      <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.4.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
+      <blockquote id="citation-text">MESQUITA PINTO JÚNIOR, José Egberto. Registro de Atividades do Departamento de Ciências Biológicas da UERN. Versão 1.5.0. Mossoró: DECB/UERN, 2026. Disponível em: https://egbertomesquita-cmd.github.io/registro-atividades-decb/. Acesso em: [dia mês ano].</blockquote>
       <button type="button" class="primary" id="copy-citation">Copiar referência</button>
     </form>
   </dialog>
@@ -129,6 +129,6 @@
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js?v=1.4.0"></script>
+  <script src="app.js?v=1.5.0"></script>
 </body>
 </html>
